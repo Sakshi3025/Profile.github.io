@@ -1,0 +1,225 @@
+/* detail.css  */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#ChatBot-Box {
+    visibility: hidden;
+}
+
+header {
+    background-color: #16a290;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.Details {
+    width: 97%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 0;
+    margin-top: 100px;
+}
+.restaurant-item{
+    display: flex;
+    justify-content: space-around;
+    width: 95%;
+    height: 100%;
+    align-items: center;
+}
+.restaurant-item img{
+    width: 400px;
+    border-radius: 10px;
+}
+.item-details {
+    width: 94%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 500px;
+    margin: auto;
+}
+
+.order {
+    width: 94%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 500px;
+    margin: auto;
+}
+
+#orderForm {
+    width: 100%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 70px;
+    margin-top: -66px;
+}
+
+.Card {
+    width: 70%;
+}
+
+.paymentInputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin: auto;
+}
+
+.inputs h1 {
+    text-align: center;
+}
+
+.paymentInputs h1,
+h2 {
+    text-align: center;
+}
+
+.input {
+    width: 93%;
+    margin: auto;
+}
+
+.nextcont {
+    width: 100%;
+    display: flex;
+}
+
+.ordercont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.paymentDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: auto;
+    width: 95%;
+}
+
+.paymentInput {
+    width: 95%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.cardInput {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+}
+
+.upi {
+    width: 95%;
+}
+
+.Expiry,
+.cvv {
+    width: 15%;
+}
+
+.custdetails {
+    width: 97%;
+    padding: 5px 0;
+    border-radius: 5px;
+    padding-left: 10px;
+    border: 1px solid gray;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nextbutton {
+    width: 93%;
+    margin: auto;
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 17px;
+    background-color: #16a290;
+    color: white;
+}
+
+.orderbutton {
+    width: 95%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 17px;
+    background-color: #16a290;
+    color: white;
+    margin-top: 40px;
+}
+
+@media screen and (min-width: 700px) {
+    .Details {
+        flex-direction: row;
+        margin-top: 138px;
+    }
+
+    .item-details {
+        width: 67%;
+    }
+
+    .order {
+        width: 29%;
+    }
+
+    #orderForm {
+        width: 100%;
+    }
+
+    #paymentform {
+        width: 100%;
+        margin: auto;
+    }
+
+
+    .inputs {
+        margin-top: -10px;
+    }
+
+    .logo span {
+        font-size: 22px;
+    }
+
+
+    .upi {
+        width: 95%;
+    }
+
+   
+}
+
