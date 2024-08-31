@@ -29,8 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("accessToken"); 
         localStorage.removeItem("userRole"); 
         
-
-        // Reset button text to "Login" after logging out
+                // Reset button text to "Login" after logging out
         loginButtons.forEach((loginButton) => {
             loginButton.innerHTML = '<a href="login.html">LogIn</a>';
         });
@@ -129,3 +128,4 @@ document.addEventListener('click', function (event) {
           });
         });
       });
+    
