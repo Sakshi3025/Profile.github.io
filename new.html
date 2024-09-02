@@ -233,22 +233,13 @@
     </style>
 </head>
 <body>
-     
+   
     <div class="container">
-       
         <div class="image-section">
-            <div
-              style="
-                background-color: rgba(33, 40, 50, 0.03);
-                padding: 10px;
-                margin-bottom: 10px;
-              ">
+            <div style="background-color: rgba(33, 40, 50, 0.03); padding: 10px; margin-bottom: 10px;">
               <h4>Profile Picture</h4>
             </div>
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Profile Picture"
-              id="profileImage" />
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profileImage" />
             <br />
             <input type="file" id="imageUpload" accept="image/*" />
             <label for="imageUpload">Upload new image</label>
@@ -260,11 +251,11 @@
                 <form id="profile-form">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input class="form-control" id="username" type="text" />
+                        <input class="form-control" id="username" type="text" readonly />
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input class="form-control" id="name" type="text" />
+                        <input class="form-control" id="name" type="text" readonly />
                     </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
@@ -272,11 +263,11 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone number</label>
-                        <input class="form-control" id="phone" type="tel" />
+                        <input class="form-control" id="phone" type="tel" readonly />
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input class="form-control" id="address" type="text" />
+                        <input class="form-control" id="address" type="text" readonly />
                     </div>
                     <div class="form-group">
                         <label for="user_type">User Type</label>
@@ -284,23 +275,19 @@
                     </div>
                     <div class="form-group">
                         <label for="aadhaar_card_number">Aadhaar Card Number</label>
-                        <input class="form-control" id="aadhaar_card_number" type="text" />
+                        <input class="form-control" id="aadhaar_card_number" type="text" readonly />
                     </div> 
-
-                    <div class="form-group">
-                        <label for="vehicle-details">Vehicle Details</label>
-                        <input class="form-control" id="vehicle-details" type="text" />
-                    </div>
-
+                   <!-- <button type="button" class="btn" id="updateButton" onclick="toggleEditMode()">Update Profile</button> -->
                     <button type="button" class="btn" onclick="updateProfile()">Update Profile</button>
-                </div>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+       let isEditing = false;
+
+       document.addEventListener("DOMContentLoaded", function () {
             const token = localStorage.getItem("accessToken");
             if (!token) {
                 alert("You need to login first!");
@@ -316,10 +303,8 @@
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
-                    
                 }
             })
-            
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Profile API call failed with status ${response.status}`);
@@ -343,63 +328,80 @@
             document.getElementById("address").value = profileData.address;
             document.getElementById("user_type").value = profileData.user_type;
             document.getElementById("aadhaar_card_number").value = profileData.aadhaar_card_number;
-
-            if (profileData.user_type === "delivery_person") {
-                document.getElementById("aadhaar_card_number").value = profileData.aadhaar_card_number;
-               
-                document.getElementById("vehicle-details").value = profileData.vehicle_details || '';
-            } else {
-                document.getElementById("aadhaar_card_number").value = profileData.aadhaar_card_number;
-                
-            }
         }
 
-        function updateProfile() {
-            const token = localStorage.getItem("accessToken");
-            const userType = document.getElementById("user_type").value;
 
-            let url;
-            let requestBody = {
-                username: document.getElementById("username").value,
-                name: document.getElementById("name").value,
-                phone_number: document.getElementById("phone").value,
-                address: document.getElementById("address").value,
-                aadhaar_card_number: document.getElementById("aadhaar_card_number").value,
-                
-            };
+function updateProfile() {
+    const fields = document.querySelectorAll('.form-control');
+    const updateButton = document.querySelector('.btn');
 
-            if (userType === "restaurant_owner") {
-                url = "http://13.201.28.236:8000/update-profile-owner/";
-            } else if (userType === "delivery_person") {
-                url = "http://13.201.28.236:8000/update-profile-delivery-person/";
-                requestBody.vehicle_details = document.getElementById("vehicle-details").value;
-                requestBody.availability_status = true; // Example status, you might want to make this dynamic.
-            } else {
-                url = "http://13.201.28.236:8000/update-profile-user/";
+    if (!isEditing) {
+        // Enable editing by removing readonly attribute
+        fields.forEach(field => {
+            if (field.hasAttribute('readonly')) {
+                field.removeAttribute('readonly');
             }
+        });
 
-            fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Update API call failed with status ${response.status}`);
+        updateButton.textContent = 'Save';
+        isEditing = true;
+    } else {
+        // Save the profile changes
+        const token = localStorage.getItem("accessToken");
+        const userType = document.getElementById("user_type").value;
+
+        let url;
+        let requestBody = {
+            username: document.getElementById("username").value,
+            name: document.getElementById("name").value,
+            phone_number: document.getElementById("phone").value,
+            address: document.getElementById("address").value,
+            aadhaar_card_number: document.getElementById("aadhaar_card_number").value,
+        };
+
+        if (userType === "restaurant_owner") {
+            url = "http://13.201.28.236:8000/update-profile-owner/";
+        } else if (userType === "delivery_person") {
+            url = "http://13.201.28.236:8000/update-profile-delivery-person/";
+            requestBody.vehicle_details = document.getElementById("vehicle-details").value;
+        } else {
+            url = "http://13.201.28.236:8000/update-profile-user/";
+        }
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Update API call failed with status ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Profile updated successfully!');
+
+            // Disable editing by adding readonly attribute back
+            fields.forEach(field => {
+                if (!field.hasAttribute('readonly')) {
+                    field.setAttribute('readonly', 'readonly');
                 }
-                return response.json();
-            })
-            .then(data => {
-                alert('Profile updated successfully!');
-            })
-            .catch(error => {
-                console.error('Error updating profile:', error);
-                alert('Failed to update profile.');
             });
-        }
+
+            updateButton.textContent = 'Update Profile';
+            isEditing = false;
+        })
+        .catch(error => {
+            console.error('Error updating profile:', error);
+            alert('Failed to update profile.');
+        });
+    }
+}
     </script>
+</body>
 </body>
 </html>
