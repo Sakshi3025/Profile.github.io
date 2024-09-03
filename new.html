@@ -338,9 +338,10 @@ function updateProfile() {
     if (!isEditing) {
         // Enable editing by removing readonly attribute
         fields.forEach(field => {
-            if (field.hasAttribute('readonly')) {
-                field.removeAttribute('readonly');
+            if (!field.hasAttribute('readonly') || field.id === 'email' || field.id === 'user_type') {
+                return;
             }
+            field.removeAttribute('readonly');
         });
 
         updateButton.textContent = 'Save';
@@ -385,9 +386,9 @@ function updateProfile() {
         .then(data => {
             alert('Profile updated successfully!');
 
-            // Disable editing by adding readonly attribute back
-            fields.forEach(field => {
-                if (!field.hasAttribute('readonly')) {
+           // Disable editing by adding readonly attribute back to all fields except email and user_type
+           fields.forEach(field => {
+                if (!field.hasAttribute('readonly') && field.id !== 'email' && field.id !== 'user_type') {
                     field.setAttribute('readonly', 'readonly');
                 }
             });
