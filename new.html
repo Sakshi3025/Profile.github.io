@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,11 +25,12 @@
         }
 
         .card-header {
-            background-color: rgba(33, 40, 50, 0.03);
+            background-color:  #16a290;
             border-bottom: 1px solid rgba(33, 40, 50, 0.125);
             padding: 1rem 1.35rem;
             font-weight: 500;
             margin-bottom: 1rem;
+            color: #fff;
         }
 
         .card-body {
@@ -76,61 +78,14 @@
             background-color: #16a290;
         }
 
-        @media (max-width: 768px) {
-            .card-body {
-                margin-left: 0;
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .form-control {
-                width: 100%;
-            }
-
-            .card-body {
-                margin-left: 0;
-                padding: 1rem;
-            }
-        }
-
+       
         .container {
             width: 90vw;
             height: 85vh;
             display: flex;
             justify-content: space-between;
         }
-
-        .image-section {
-            width: 30%;
-            text-align: center;
-            border: 1px solid #ddd;
-            padding-bottom: 20px;
-            margin: 5px;
-            border-radius: 10px;
-            height: 450px;
-        }
-
-        .image-section img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .image-section input {
-            display: none;
-            padding-bottom: 10px;
-        }
-
-        .image-section label {
-            background-color: #16a290;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+       
 
         .form-section {
             margin-top: 10px;
@@ -157,7 +112,7 @@
 
         .form-group input,
         .form-group select {
-            width: 400px;
+            width: 300px;
             padding: 8px;
             border-radius: 5px;
             border: 1px solid #ced4da;
@@ -198,19 +153,6 @@
                 height: auto;
             }
 
-            .image-section {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 10px;
-                margin-bottom: 10px;
-            }
-
-            .image-section img {
-                width: 100px;
-                height: 100px;
-            }
-
             .form-section {
                 width: 100%;
             }
@@ -223,25 +165,143 @@
                 width: 100%;
             }
         }
+
+        
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #16a290;
+            padding-top: 20px;
+        }
+
+        .sidebar img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .sidebar .username {
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color:#16a290;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color:#16a290;
+        }
+
+        .sidebar button.active {
+            background-color: #16a290;
+        }
+
+        .sidebar button i {
+            margin-right: 10px;
+        }
+
+        .sidebar button .dropdown-arrow {
+            margin-left: auto;
+            transition: transform 0.3s;
+        }
+
+        .sidebar button.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-container {
+            display: none;
+            background-color: #16a290;
+            padding-left: 8px;
+        }
+
+        .dropdown-container a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .dropdown-container a:hover {
+            background-color:#16a290;
+        }
+        .container {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            padding: 20px;
+        }
+
+      
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="image-section">
-            <div style="background-color: rgba(33, 40, 50, 0.03); padding: 10px; margin-bottom: 10px;">
-                <h4>Profile Picture</h4>
-            </div>
-            <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profileImage" />
-            <br />
-            <input type="file" id="imageUpload" accept="image/*" />
-            <label for="imageUpload">Upload new image</label>
-            
-            <div>
-                <button id="changePasswordButton" class="btn" type="button" onclick="togglePasswordChange()" style="color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: medium; width: 180px; height: 38px; margin: 50px;">Change Password</button>
-            </div>
+        <!-- Sidebar Section -->
+    <div class="sidebar">
+        <!-- Profile Picture and Name -->
+        <img src="https://via.placeholder.com/100" alt="Profile Picture" />
+        
+        <input class="form-control" id="name" type="text" readonly  style="background-color: #16a290; border-color: #16a290; color: #fff; text-align: center; font-size: large;"/>
+        <!-- Dropdown Buttons with Icons and Arrows -->
+        <button class="dropdown-btn">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Overview</a>
+            <a href="#">Stats</a>
+            <a href="#">Reports</a>
         </div>
+
+        <button class="dropdown-btn">
+            <i class="fas fa-shopping-cart"></i> Order
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">New Orders</a>
+            <a href="#">Order History</a>
+            <a href="#">Pending Orders</a>
+        </div>
+
+        <button class="dropdown-btn">
+            <i class="fas fa-utensils"></i> Menu
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">View Menu</a>
+            <a href="#">Edit Menu</a>
+            <a href="#">Add Item</a>
+        </div>
+        <div>
+          
+          <button id="changePasswordButton" class="btn" type="button" onclick="togglePasswordChange()" >Change Password</button>
+        </div>
+        
+    </div>
 
         <div class="form-section">
             <div class="profile-card" id="profile-card">
@@ -288,12 +348,12 @@
         <div class="card-body">
             <form id="change-password-form">
                 <div class="form-group">
-                    <label for="old-password">Old Password</label>
-                    <input class="form-control" id="old-password" type="password" />
+                    <label for="current_password">Current password</label>
+                    <input class="form-control" id="current_password" type="password" />
                 </div>
                 <div class="form-group">
-                    <label for="new-password">New Password</label>
-                    <input class="form-control" id="new-password" type="password" />
+                    <label for="new_password">New Password</label>
+                    <input class="form-control" id="new_password" type="password" />
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
@@ -308,6 +368,21 @@
         </div>
 
         <script>
+ // JavaScript for Sidebar Dropdown Functionality
+ const dropdowns = document.querySelectorAll('.dropdown-btn');
+        dropdowns.forEach(button => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                } else {
+                    dropdownContent.style.display = 'block';
+                }
+            });
+        });
+
+            //profile
             let isEditing = false;
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -444,11 +519,11 @@
 
 function changePassword() {
     const token = localStorage.getItem("accessToken");
-    const oldPassword = document.getElementById("old-password").value;
-    const newPassword = document.getElementById("new-password").value;
+    const current_password = document.getElementById("current_password").value;
+    const new_Password = document.getElementById("new_password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
 
-    if (newPassword !== confirmPassword) {
+    if (new_Password !== confirmPassword) {
         alert("New password and confirm password do not match!");
         return;
     }
@@ -460,8 +535,8 @@ function changePassword() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            old_password: oldPassword,
-            new_password: newPassword
+            current_password: current_password,
+            new_password: new_Password
         })
     })
     .then(response => {
