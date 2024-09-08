@@ -265,7 +265,7 @@
         <!-- Profile Picture and Name -->
         <img src="https://via.placeholder.com/100" alt="Profile Picture" />
         
-        <input class="form-control" id="name" type="text" readonly  style="background-color: #16a290; border-color: #16a290; color: #fff; text-align: center; font-size: large;"/>
+        <input class="form-control" id="fullname" type="text" readonly  style="background-color: #16a290; border-color: #16a290; color: #fff; text-align: center; font-size: large;"/>
         <!-- Dropdown Buttons with Icons and Arrows -->
         <button class="dropdown-btn">
             <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -421,6 +421,7 @@
             function populateProfile(profileData) {
                 document.getElementById("username").value = profileData.username;
                 document.getElementById("name").value = profileData.name;
+                document.getElementById("fullname").value = profileData.name;
                 document.getElementById("email").value = profileData.email;
                 document.getElementById("phone").value = profileData.phone_number;
                 document.getElementById("address").value = profileData.address;
@@ -453,6 +454,7 @@
                     let requestBody = {
                         username: document.getElementById("username").value,
                         name: document.getElementById("name").value,
+                        fullname: document.getElementById("fullname").value,
                         phone_number: document.getElementById("phone").value,
                         address: document.getElementById("address").value,
                         aadhaar_card_number: document.getElementById("aadhaar_card_number").value,
